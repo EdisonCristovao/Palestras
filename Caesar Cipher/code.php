@@ -9,14 +9,39 @@ You have to implement 2 methods, one to encrypt a message, and another to decryp
 */
 
 function caesarEncrypt($plainText, $key) {
-	$numDaLetra = getNumeroLetra($plainText);
+	$msg = str_split($plainText);
+	$msgEncr = "";
+
+	foreach ($msg as $char ) {
+		$msgEncr .= "".encrypt($char, $key);
+	}
+
+	return $msgEncr;
+}
+ 
+function caesarDecrypt($cipherText, $key) {
+	$msg = str_split($cipherText);
+	$msgDencr = "";
+
+	foreach ($msg as $char ) {
+		$msgDencr .= "".decrypt($char, $key);
+	}
+	return $msgDencr;
+}
+
+function encrypt($char, $key){
+	if ($char == " ") 
+		return " ";
+	$numDaLetra = getNumeroLetra($char);
 	$numeroCodificado = ($numDaLetra + $key) % 26;
 
 	return getLetraNumero($numeroCodificado);
 }
- 
-function caesarDecrypt($cipherText, $key) {
-	$numeroDaLetra = getNumeroLetra($cipherText);
+
+function decrypt($char, $key){
+	if ($char == " ") 
+		return " ";
+	$numeroDaLetra = getNumeroLetra($char);
 	$numeroDecodificado = ($numeroDaLetra + (26 - $key)) % 26;
 
  	return getLetraNumero($numeroDecodificado);
