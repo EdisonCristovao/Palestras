@@ -9,7 +9,9 @@ class KeyPairExampleSolution extends PHPUnit_Framework_TestCase
     {
         $keyPair = new KeyPairExample();
         $this->assertEquals("OpenSSL key", get_resource_type($keyPair->keyPair));
-    }
+    	$msgCif = $keyPair->encryptWPublicKey("edison");
+     	$this->assertEquals("edison", $keyPair->decryptWPrivateKey($msgCif));
+     }	
    
 }
 
