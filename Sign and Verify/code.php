@@ -17,7 +17,7 @@ BONUS: Try not to use any PHP OpenSSL functions, but only the functions provided
 //Returns the signature of $keyPair on $message.
 function sign($message, $keyPair) {
 	$msgEnc = $keyPair->encryptWPrivateKey($message);
-	return $msgEnc;
+	return $keyPair->getHash($msgEnc);
 	
 	//openssl_sign($message, $signature, $keyPair->getPrivateKey);
 	//return $signature;
@@ -25,10 +25,9 @@ function sign($message, $keyPair) {
  
 //Returns true if $signature is the result of signing $message with $keyPair, false otherwise.
 function verify($message, $signature, $keyPair) {
-	$msgDec = $keyPair->decryptWPublicKey($signature);
-	if ($message==$msgDec) {
+	$signatureAux = $keyPair->getHash($keyPair->encryptWPrivateKey($message));
+ 	if (($signature==$signatureAux)) 
 		return true;
-	}
 	return false;
 	//openssl_verify($me, signature, pub_key_id)
 }

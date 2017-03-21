@@ -5,7 +5,7 @@ class KeyPairExample
     public $keyPair;
    
     function __construct () {
-         $keySize = 1024;
+        $keySize = 1024;
         $this->keyPair = openssl_pkey_new(array($keySize));        
     }
  
@@ -20,16 +20,13 @@ class KeyPairExample
     }
 
     public function encryptWPublicKey($data) {
-       if(openssl_public_encrypt($data, $dataCrypted, self::getPublicKeyPem())) {
-            return true;
-       }return false;
-       
+       openssl_public_encrypt($data, $dataCrypted, $this->getPublicKey());
+       return $dataCrypted;
     }
 
     public function decryptWPrivateKey($data) {
-       if(openssl_private_decrypt($data, $dataDecrypted, self::getPrivateKeyPem())) {;
-              return true;
-       }return false;
+        openssl_private_decrypt($data, $dataDecrypted, $this->getPrivateKey());
+        return $dataDecrypted;
     }
    
     public function getHash($data) {

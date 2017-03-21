@@ -35,14 +35,14 @@ class KeyPairExample
     public function encryptWPublicKey($data)
     {
         //encrypts data with the public key
-       openssl_public_encrypt($data, $dataCrypted, self::getPublicKeyPem());
+       openssl_public_encrypt($data, $dataCrypted, $this->getPublicKeyPem());
        return $dataCrypted;
     }
    
     public function decryptWPrivateKey($data)
     {
         //decrypts data with the private key
-        openssl_private_decrypt($data, $dataDecrypted, self::getPrivateKeyPem());
+        openssl_private_decrypt($data, $dataDecrypted, $this->getPrivateKeyPem());
         return $dataDecrypted;
     }
  
