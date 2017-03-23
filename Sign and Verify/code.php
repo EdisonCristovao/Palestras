@@ -25,8 +25,7 @@ function sign($message, $keyPair) {
  
 //Returns true if $signature is the result of signing $message with $keyPair, false otherwise.
 function verify($message, $signature, $keyPair) {
-	$signatureAux = $keyPair->getHash($keyPair->encryptWPrivateKey($message));
- 	if (($signature==$signatureAux)) 
+	if (($signature==sign($message, $keyPair))) 
 		return true;
 	return false;
 	//openssl_verify($me, signature, pub_key_id)
