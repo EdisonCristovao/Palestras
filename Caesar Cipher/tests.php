@@ -1,20 +1,56 @@
 <?php
-
+use PHPUnit\Framework\TestCase;  // Teste para php 7
 require './code.php';
 
-class CaesarCipherTest extends PHPUnit_Framework_TestCase
+class CaesarCipherTest extends TestCase // Teste para php 7
+//class CaesarCipherTest extends PHPUnit_Framework_TestCase
 {
-    public function testEncrypt()
-    {
-		$this->assertEquals("TESTE CIFRA DE CESAR", caesarEncrypt("TESTE CIFRA DE CESAR", 0));
-		$this->assertEquals("LWKLW UAXJS VW UWKSJ", caesarEncrypt("TESTE CIFRA DE CESAR", 18));
-		$this->assertEquals("NYMNY WCZLU XY WYMUL", caesarEncrypt("TESTE CIFRA DE CESAR", 20));
-		
-		$this->assertEquals("TESTE CIFRA DE CESAR", caesarDecrypt("GRFGR PVSEN QR PRFNE", 13));
-		$this->assertEquals("TESTE CIFRA DE CESAR", caesarDecrypt("EPDEP NTQCL OP NPDLC", 11));
-		$this->assertEquals("TESTE CIFRA DE CESAR", caesarDecrypt("QBPQB ZFCOX AB ZBPXO", 23));
-		$this->assertEquals("TESTE CIFRA DE CESAR", caesarDecrypt("SDRSD BHEQZ CD BDRZQ", 25));
-		
+    public function testEncrypt(){
+      $this->assertEquals("bcd", caesarEncrypt("abc", 1));
+    }
+
+    public function testAutomaticAllKey() {
+      $msg = "esse teste e divertido";
+
+      for ($i=0; $i < 26; $i++) {
+        $msgEnc = caesarEncrypt($msg, $i);
+        $msgDec = caesarDecrypt($msgEnc, $i);
+        $this->assertEquals($msg, $msgDec);
+
+      }
+    }
+
+    public function testAutomaticAllKey2() {
+      $msg = "The quick brown fox jumps over the lazy dog";
+
+      for ($i=0; $i < 26; $i++) {
+        $msgEnc = caesarEncrypt($msg, $i);
+        $msgDec = caesarDecrypt($msgEnc, $i);
+        $this->assertEquals($msg, $msgDec);
+
+      }
+    }
+
+    public function testeComLetraMaiuscula() {
+      $msg = "The Quick Brown fOx jumps over The lAzy dog";
+
+      for ($i=0; $i < 26; $i++) {
+        $msgEnc = caesarEncrypt($msg, $i);
+        $msgDec = caesarDecrypt($msgEnc, $i);
+        $this->assertEquals($msg, $msgDec);
+
+      }
+    }
+
+    public function testeComCaracterEspecifico() {
+      $msg = "The Qui'$'k BroWn fOx j@mps ov!r T''he lAzy dog";
+
+      for ($i=0; $i < 26; $i++) {
+        $msgEnc = caesarEncrypt($msg, $i);
+        $msgDec = caesarDecrypt($msgEnc, $i);
+        $this->assertEquals($msg, $msgDec);
+
+      }
     }
 }
 
