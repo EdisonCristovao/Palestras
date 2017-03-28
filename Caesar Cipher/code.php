@@ -67,7 +67,7 @@ function getNumeroLetra($letra){
 
 	return 0;
 }
-
+//outros caracter especificos podem ser adicionados aqui nesse array
 function caracterEspeciais($char){
 	$esp = array( " ", "!", "@", "#", "$", "%", "&" , ".", ",", ";", "'");
 	for ($i=0; $i < count($esp); $i++)

@@ -23,14 +23,10 @@ function createCACert($caName, $keyPair) {
 
 //Generates a certificate for someone of common name $cn with $keyPair, issued by a certification authority identified by its x509.certificate $caCertificate and key pair $caKeyPair.
 function issueCert($cn, $keyPair, $caCertificate, $caKeyPair) {
-	if (openssl_x509_check_private_key($caCertificate, $caKeyPair->getPrivateKey())) {
 		$dn = $arrayName = array('CN' => $cn);
 		$priv = $keyPair->getPrivateKey(); // essa linha nao foi chamada embaixo devido a um erro de referencia
 		$ass = openssl_csr_sign(openssl_csr_new($dn, $priv), $caCertificate, $caKeyPair->getPrivateKey(), 1);
 		return $ass;
-	}
-	return createCACert($cn, $keypair);
-
 }
 
 ?>
